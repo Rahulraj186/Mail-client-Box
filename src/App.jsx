@@ -5,10 +5,12 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Welcome from "./Welcome";
 import ComposeMail from "./ComposeMail";
+import Inbox from "./Inbox";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
+  const [showCompose, setShowCompose] = useState(false);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
@@ -20,6 +22,10 @@ function App() {
 
   const toggleAuthScreen = () => {
     setShowLogin(!showLogin);
+  };
+
+  const toggleComposeScreen = () => {
+    setShowCompose(!showCompose);
   };
 
   return (
@@ -47,7 +53,10 @@ function App() {
       ) : (
         <>
           <Welcome />
-          <ComposeMail />
+          <button onClick={toggleComposeScreen}>
+            {showCompose ? "Go to Inbox" : "Compose Mail"}
+          </button>
+          {showCompose ? <ComposeMail /> : <Inbox />}
         </>
       )}
     </div>
