@@ -6,6 +6,7 @@ import Login from "./Login";
 import Welcome from "./Welcome";
 import ComposeMail from "./ComposeMail";
 import Inbox from "./Inbox";
+import { InboxProvider } from "./InboxContext";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,37 +30,39 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {!isLoggedIn ? (
-        <>
-          {showLogin ? (
-            <div>
-              <Login onLoginSuccess={handleLoginSuccess} />
-              <p>
-                Don't have an account?{" "}
-                <button onClick={toggleAuthScreen}>Sign Up</button>
-              </p>
-            </div>
-          ) : (
-            <div>
-              <Signup onSignupSuccess={handleSignupSuccess} />
-              <p>
-                Already have an account?{" "}
-                <button onClick={toggleAuthScreen}>Login</button>
-              </p>
-            </div>
-          )}
-        </>
-      ) : (
-        <>
-          <Welcome />
-          <button onClick={toggleComposeScreen}>
-            {showCompose ? "Go to Inbox" : "Compose Mail"}
-          </button>
-          {showCompose ? <ComposeMail /> : <Inbox />}
-        </>
-      )}
-    </div>
+    <InboxProvider>
+      <div className="App">
+        {!isLoggedIn ? (
+          <>
+            {showLogin ? (
+              <div>
+                <Login onLoginSuccess={handleLoginSuccess} />
+                <p>
+                  Don't have an account?{" "}
+                  <button onClick={toggleAuthScreen}>Sign Up</button>
+                </p>
+              </div>
+            ) : (
+              <div>
+                <Signup onSignupSuccess={handleSignupSuccess} />
+                <p>
+                  Already have an account?{" "}
+                  <button onClick={toggleAuthScreen}>Login</button>
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <Welcome />
+            <button onClick={toggleComposeScreen}>
+              {showCompose ? "Go to Inbox" : "Compose Mail"}
+            </button>
+            {showCompose ? <ComposeMail /> : <Inbox />}
+          </>
+        )}
+      </div>
+    </InboxProvider>
   );
 }
 
