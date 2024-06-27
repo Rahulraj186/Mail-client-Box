@@ -4,17 +4,18 @@ import React, { useState } from "react";
 import Signup from "./Signup";
 import Login from "./Login";
 import Welcome from "./Welcome";
+import ComposeMail from "./ComposeMail";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(true); // state to toggle between login and signup
+  const [showLogin, setShowLogin] = useState(true);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
   };
 
   const handleSignupSuccess = () => {
-    setShowLogin(true); // Switch to login screen after successful signup
+    setShowLogin(true);
   };
 
   const toggleAuthScreen = () => {
@@ -44,7 +45,10 @@ function App() {
           )}
         </>
       ) : (
-        <Welcome />
+        <>
+          <Welcome />
+          <ComposeMail />
+        </>
       )}
     </div>
   );
